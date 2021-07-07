@@ -1,21 +1,3 @@
-function Counter(element, value) {
-  this.counter = element;
-  this.value = value;
-  this.resetBtn = element.querySelector('.reset');
-  this.decreaseBtn = element.querySelector('.decrease');
-  this.increaseBtn = element.querySelector('.increase');
-  this.valueDOM = element.querySelector('.value');
-  this.valueDOM.textContent = this.value;
-
-  // bind this to all function
-  this.increase = this.increase.bind(this);
-  this.decrease = this.decrease.bind(this);
-  this.reset = this.reset.bind(this);
-  this.increaseBtn.addEventListener('click', this.increase);
-  this.decreaseBtn.addEventListener('click', this.decrease);
-  this.resetBtn.addEventListener('click', this.reset);
-}
-
 function getElement(selection) {
   const element = document.querySelector(selection);
   if (element) {
@@ -26,16 +8,35 @@ function getElement(selection) {
   );
 }
 
-Counter.prototype.increase = function () {
-  this.value++;
+function Counter(element, value) {
+  this.counter = element;
+  this.value = value;
+
+  this.valueDOM = element.querySelector('.value');
+  this.decreaseBtn = element.querySelector('.decrease');
+  this.resetBtn = element.querySelector('.reset');
+  this.increaseBtn = element.querySelector('.increase');
+
+  this.reset = this.reset.bind(this);
+  this.decrease = this.decrease.bind(this);
+  this.increase = this.increase.bind(this);
+
+  this.resetBtn.addEventListener('click', this.reset);
+  this.increaseBtn.addEventListener('click', this.increase);
+  this.decreaseBtn.addEventListener('click', this.decrease);
+  this.valueDOM.textContent = this.value;
+}
+
+Counter.prototype.reset = function () {
+  this.value = 0;
   this.valueDOM.textContent = this.value;
 };
 Counter.prototype.decrease = function () {
   this.value--;
   this.valueDOM.textContent = this.value;
 };
-Counter.prototype.reset = function () {
-  this.value = 0;
+Counter.prototype.increase = function () {
+  this.value++;
   this.valueDOM.textContent = this.value;
 };
 
